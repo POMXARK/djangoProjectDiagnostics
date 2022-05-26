@@ -1,0 +1,57 @@
+<script>
+
+var options = {
+  series: [],
+  chart: {
+  height: 350,
+  type: 'line',
+  dropShadow: {
+    enabled: true,
+    color: '#000',
+    top: 18,
+    left: 7,
+    blur: 10,
+    opacity: 0.2
+  },
+  toolbar: {
+    show: true
+  }
+}, colors: ['#77B6EA', '#545454','#F44336', '#E91E63', '#9C27B0', '#98CE00', '#16E0BD',  '#78C3FB', '#89A6FB', '#98838F'],
+dataLabels: {
+  enabled: true,
+    },
+  xaxis: {
+    categories: []
+  },
+
+stroke: {
+    show: true,
+    curve: 'smooth',
+    lineCap: 'butt',
+    colors: undefined,
+    width: 1,
+    dashArray: 0,
+}
+
+}
+
+function updateApexChart(dataset_apex_arr,list_labels) {
+    let categoriesArr = [];
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+
+    chart.render();
+    categoriesArr.push(...list_labels);
+    chart.updateOptions({
+        series: dataset_apex_arr,
+        xaxis: {
+            categories: categoriesArr
+        }
+
+
+        {#chart js -> apexchart js#}
+        {#label -> name#}
+        {#data -> data#}
+        {#datasets - > series#}
+        {#labels -> categories#}
+    })}
+</script>

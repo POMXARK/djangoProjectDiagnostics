@@ -1,0 +1,57 @@
+<script>
+    function updateTable(tableId,current_values, set_filter = 0) {
+
+        let out = [];
+        let columns_names;
+        for (const [key, value] of Object.entries(current_values)) {
+
+
+            if (value.err > 0 && value.sts === 1){
+                let news = [];
+                if (set_filter > 0 && set_filter == value.idai) {
+                    for (const [key, field_model] of Object.entries(value)){
+                            news.push(field_model);
+                        }
+                        out.push(news);
+                    }
+                if (set_filter === 0  ){
+                    for (const [key, field_model] of Object.entries(value)){
+                            news.push(field_model);
+                        }
+                        out.push(news);
+
+                }
+            }
+
+            }
+
+
+
+        updateTableSts();
+
+
+                    if (out.length !== countElOut || changesFound) {
+
+                        changesFound = false;
+                        countElOut = out.length;
+                         $('#table_id').DataTable({
+                                "order": [[ 0, 'desc' ]],
+                                "pageLength": 20,
+                                lengthMenu: [10, 20, 50, 100, 200, 500],
+                                destroy: true,
+                                responsive: true,
+                                data: out,
+                                "columnDefs": [{
+                                    "targets": -1,
+                                    "data": null,
+                                    "defaultContent": '<button type="button" class=" change_sts_new btn btn-primary btn-block">квитировать</button>'
+                                }]
+                            }
+
+                        );
+
+                    }
+
+    }
+
+</script>

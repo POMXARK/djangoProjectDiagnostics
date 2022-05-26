@@ -1,0 +1,48 @@
+	<!-- [ navigation menu ] start -->
+	<nav id="menu" class="pc-sidebar ">
+		<div class="navbar-wrapper">
+			<div class="m-header">
+				<a href="index.html" class="b-brand">
+                        {% load static %}
+					<!-- ========   change your logo hear   ============ -->
+					<img src={% static "app/assets/images/logo.svg"%}?{% now "U" %} alt="" class="logo logo-lg">
+					<img src={% static "app/assets/images/logo-sm.svg"%}?{% now "U" %} alt="" class="logo logo-sm">
+				</a>
+			</div>
+			<div class="navbar-content">
+				<ul class="pc-navbar">
+					<li class="pc-item pc-caption">
+						<label>Navigation</label>
+					</li>
+
+					<li class="pc-item">
+						<a href="/home" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">home</i></span><span class="pc-mtext">Home</span></a>
+					</li>
+
+					<li class="pc-item">
+						<a href="/" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">login</i></span><span class="pc-mtext">login</span></a>
+					</li>
+
+                    <li class="pc-item">
+						<a href="/table" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone"></i></span><span class="pc-mtext">table</span></a>
+					</li>
+
+                    <li class="pc-item">
+						<a href="/graph" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone"></i></span><span class="pc-mtext">graph</span></a>
+					</li>
+
+                    <li class="pc-item pc-caption">
+						<label>Sensors</label>
+                    {% for i in '0123456789'|make_list %}
+                    <li class="pc-item">
+						<a href="/details/{{ forloop.counter }}" class="pc-link "><span class=""></span><span class="pc-mtext">ai {{ forloop.counter }}</span></a>
+					</li>
+                    {% endfor %}
+
+					</li>
+
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- [ navigation menu ] end -->

@@ -1,0 +1,58 @@
+<head>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
+
+
+    <title>{{ title_page }}</title>
+    {% load static %}
+{#    <link rel="stylesheet" type="text/css" href="{% static 'app/style.css' %}?{% now "U" %}">#}
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+
+
+
+    <!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 11]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	<!-- Meta -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="description" content="DashboardKit is made using Bootstrap 5 design framework. Download the free admin template & use it for your project.">
+	<meta name="keywords" content="DashboardKit, Dashboard Kit, Dashboard UI Kit, Bootstrap 5, Admin Template, Admin Dashboard, CRM, CMS, Free Bootstrap Admin Template">
+	<meta name="author" content="DashboardKit ">
+
+    <!-- Favicon icon -->
+	<link rel="icon" href={% static "app/assets/images/favicon.svg"%}?{% now "U" %} type="image/x-icon">
+
+	<!-- font css -->
+    <link rel="stylesheet" href={% static "app/assets/fonts/feather.css"%}?{% now "U" %}>
+	<link rel="stylesheet" href={% static "app/assets/fonts/fontawesome.css"%}?{% now "U" %}>
+	<link rel="stylesheet" href={% static "app/assets/fonts/material.css"%}?{% now "U" %}>
+
+    	<!-- vendor css -->
+	<link rel="stylesheet" href={% static "app/assets/css/style.css"%}?{% now "U" %} id="main-style-link">
+
+
+
+
+
+    <!--Chart js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
+            integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css"
+          integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous"/>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <!-- jQuery -->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+
+    {% include 'app/hover_navbar_js.html' %}
+
+</head>

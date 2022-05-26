@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'app/head.html' %}
+<body>
+{% include 'app/navigation_menu.html' %}
+<div class="container-fluid pl-0">
+    <div class="row">
+        <div class="col-12">
+            <div class="card-body">
+                <select  id="count_points" class="align-items-right">
+                  <option value="6">6</option>
+                  <option selected="selected" value="24">24</option>
+                  <option value="70">70</option>
+                </select>
+                <div id="chart"></div>
+            </div>
+                </div>
+    </div>
+</div>
+
+</body>
+
+{% include 'app/graph/set_graph_js.html' %}
+{% include 'app/graph/all/graph_apex_chart_js.html' %}
+{% include 'app/graph/details/details_graph_js.html' %}
+{% include 'app/graph/all/graph.html' %}
+{% include 'app/graph/details/details_websocket.html' %}
+
+<script>
+
+
+function getDetailsData(myUrl) {
+    let result;
+    data = $.ajax({
+        url: myUrl,
+        dataType: 'json',
+        async: false,
+        success: function (data) {
+            result = data;
+        }
+    });
+    return result;
+}
+
+
+{#let test = getDetailsData("/api/tables-1/?idai=10");#}
+
+{#console.log(test);#}
+$(document).ready(function () {
+    const socket_graph_details = new WebSocket('ws://localhost:8011/ws/details/');
+    socket_graph_details.onmessage = function (e) {
+
+        let current_values = $.parseJSON(get_data(e.data));
+
+        graphs = getDataAllGraph(graphs, current_values, "datein");
+        {#здесь менять <- #}
+
+        const [dataset_apex_arr, list_labels] = setApexChart(graphs,count_points_selected)
+
+        updateApexChart(dataset_apex_arr,list_labels);
+
+        console.log(graphs);
+        {#for (const [key, value] of Object.entries(current_values)) {#}
+        {#    for (const [key, el] of Object.entries(value)) {#}
+        {#        console.log(key);#}
+        {#    }#}
+
+    }});
+
+</script>
+
+
+</html>

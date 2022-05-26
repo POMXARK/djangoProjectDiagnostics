@@ -1,0 +1,68 @@
+
+<script>
+    function updateTableSts() {
+        $('#table_id').on('click', 'button', function () {
+            changesFound = true;
+            let parentObj = $(this).closest("tr");
+            let values = parentObj.find('td');
+            console.log("test");
+
+
+            let id = values[0].textContent;
+            let table_fields_names = $("#table_fields_names").find('td')
+            console.log(table_fields_names.length);
+            i = 0
+
+            let global_set = [];
+            for (const [key, value] of Object.entries(values)) {
+                let new_set = {};
+                if (i < table_fields_names.length){
+                    if (table_fields_names[i].textContent === "sts"){
+                       new_set[table_fields_names[i].textContent] = changeSts(value.textContent);
+                    }else {
+                        new_set[table_fields_names[i].textContent] = value.textContent;
+                    }
+                    global_set.push(new_set);
+                    i++;
+                }
+
+            }
+
+            let merge_dataset = Object.assign(...global_set);
+            console.log(merge_dataset);
+
+        function changeSts(sts) {
+            if (sts === '1') {
+                sts = '2'
+            } else {
+                sts = '1'
+            }
+            return sts
+        }
+
+
+            let current_url;
+
+            if ("{{ user.get_username }}" === "Cm001") {
+                console.log("target");
+                current_url = `/api/tables-1/${id}/`
+
+            }
+            if ("{{ user.get_username }}" === "Cm002") {
+                current_url = `/api/tables-2/${id}/`
+            }
+            console.log(merge_dataset);
+            $.ajax({
+                url: current_url,
+                type: 'PUT',
+                headers: {"X-CSRFToken": "{{ csrf_token }}"},
+                data: JSON.stringify(merge_dataset),
+                contentType: "application/json",
+                success: function (result) {
+                    // Do something with the result
+                },
+            });
+
+        });
+    }
+</script>

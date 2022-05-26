@@ -1,0 +1,20 @@
+<script>
+    function get_data(data) {
+                           djangoData = JSON.parse(data);
+
+                    let current_values;
+
+                    if ("{{ user.get_username }}" === "Cm001") {
+                        current_values = djangoData.value_1;
+                        {#console.log(djangoData);#}
+                    }
+
+                    if ("{{ user.get_username }}" === "Cm002") {
+                        current_values = djangoData.value_2;
+                    }
+
+                    
+  return current_values;
+
+}
+</script>

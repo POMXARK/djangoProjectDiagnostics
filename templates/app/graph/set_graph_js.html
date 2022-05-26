@@ -1,0 +1,26 @@
+<script>
+    function setApexChart(graphs,count_points_selected, skip_value = []) {
+    let dataset_apex_arr =[];
+    let list_labels = new Set;
+        for (const [key, value] of Object.entries(graphs)) {
+        {#&& #}
+            let list_current = [];
+            let slice_value = value.slice(-(count_points_selected))
+
+        if  (skip_value.length > 0 && (skip_value.indexOf( key ) !== -1 )){
+            } else {
+
+            for (const [key, el] of Object.entries(slice_value)) {
+                list_labels.add(el.date);
+                list_current.push(el.value);
+        }
+
+            dataset_apex_arr.push({
+                name: key,
+                data: list_current,
+            })}
+
+        }
+                return [dataset_apex_arr, list_labels]
+}
+</script>

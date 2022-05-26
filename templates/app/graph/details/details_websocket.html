@@ -1,0 +1,21 @@
+<script>
+    function get_data(data, sensorNumber) {
+                           djangoData = JSON.parse(data);
+
+                    let current_values;
+
+                    if  (djangoData.sensor_number == sensorNumber){
+
+                        if ("{{ user.get_username }}" === "Cm001") {
+                            current_values = djangoData.value_1;
+                        }
+
+                        if ("{{ user.get_username }}" === "Cm002") {
+                            current_values = djangoData.value_2;
+                        }
+                        return current_values;
+                     }
+  return 0;
+
+}
+</script>

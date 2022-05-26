@@ -1,0 +1,35 @@
+{% load static %}
+
+    <script>
+        let countElOut;
+        let changesFound;
+let global_values = [];
+let global_count_points_selected;
+
+$(document).ready(function () {
+    const socket_graph = new WebSocket('ws://localhost:8011/ws/graph/');
+    socket_graph.onmessage = function (e) {
+
+        let graphs = {};
+        let current_values = get_data(e.data);
+        let count_points_selected = $( "#count_points option:selected" ).text();
+        if (_.isEqual(current_values, window.global_values) === false ||
+            _.isEqual(count_points_selected, window.global_count_points_selected) === false){
+            window.global_values = current_values;
+            window.global_count_points_selected = count_points_selected;
+
+            {#здесь менять -> #}
+
+            graphs = getDataAllGraph(graphs, current_values, "date", 5);
+            {#здесь менять <- #}
+
+            const [dataset_apex_arr, list_labels] = setApexChart(graphs,count_points_selected)
+
+            updateApexChart(dataset_apex_arr,list_labels);
+    }}
+
+});
+
+
+    </script>
+

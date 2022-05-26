@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+{% include 'app/head.html' %}
+
+<body>
+<!-- [ auth-signin ] start -->
+<div class="auth-wrapper">
+	<div class="auth-content">
+		<div class="card">
+			<div class="row align-items-center text-center">
+				<div class="col-md-12">
+                {% block content %}
+
+                    <div class="card-body">
+
+                        <img src={% static "app/assets/images/logo-dark.svg"%}?{% now "U" %} alt="" class="img-fluid mb-4">
+						<h4 class="mb-3 f-w-400">Signin</h4>
+
+                        <form method="post">
+                            {% csrf_token %}
+
+                            <div class="form-error">{{ form.non_field_errors }}</div>
+
+
+                            {% for f in form %}
+                                <div class="input-group mb-4">
+                                {% if forloop.counter == 1 %}
+                                <span class="input-group-text"><i data-feather="user"></i></span>
+                                    {% else %}
+                                    <span class="input-group-text"><i data-feather="lock"></i></span>
+                                    {% endif %}
+                                {{ f }}<label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}</label>
+                                </div>
+                                <div class="form-error">{{ f.errors }}</div>
+                            {% endfor %}
+
+                            <div class="form-group text-left mt-2">
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+								<label class="form-check-label" for="flexCheckChecked">
+									Save credentials
+                                    </label>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-block btn-primary mb-4">Sign in</button>
+                        </form>
+
+
+                    </div>
+                    {{ varint }}
+                    {{ varint }}
+
+                {% endblock %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- [ auth-signin ] end -->
+
+
+
+</body>
+<!-- Required Js -->
+<script src={% static "app/assets/js/vendor-all.min.js"%}?{% now "U" %}></script>
+<script src={% static "app/assets/js/plugins/bootstrap.min.js"%}?{% now "U" %}></script>
+<script src={% static "app/assets/js/plugins/feather.min.js"%}?{% now "U" %}></script>
+<script src={% static "app/assets/js/pcoded.min.js"%}?{% now "U" %}></script>
+
+
+
+</html>

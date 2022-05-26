@@ -1,0 +1,24 @@
+<script>
+    function getDataAllGraph(graphs, current_values, value_x, number_missing_values) {
+        for (const [key, value] of Object.entries(current_values)) {
+            i = 0;
+            let date;
+            for (const [key, el] of Object.entries(value)) {
+                if (key === value_x) {
+                    date = el;
+                }
+                if (i >= number_missing_values) {
+                    if (graphs[key]) {
+                        graphs[key] = [...Array.from(graphs[key]), {"date": date, "value": el}];
+                    } else {
+                        graphs[key] = [{"date": date, "value": el}];
+                    }
+                }
+
+                i++;
+
+            }
+        }
+        return graphs;
+    }
+</script>
