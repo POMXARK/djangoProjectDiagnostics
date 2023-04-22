@@ -1,5 +1,5 @@
 import json
-
+import os
 
 import requests_async as requests
 from asgiref.sync import sync_to_async
@@ -37,7 +37,7 @@ class DetailsConsumerCmn(AsyncWebsocketConsumer):
 
         while True:
             for i in range(1, 11):
-                response_1 = await requests.get(f"http://127.0.0.1:8011/api/tables-1/?idai={i}")
-                response_2 = await requests.get(f"http://127.0.0.1:8011/api/tables-2/?idai={i}")
+                response_1 = await requests.get(f"http://{os.environ.get('HOST')}:8011/api/tables-1/?idai={i}")
+                response_2 = await requests.get(f"http://{os.environ.get('HOST')}:8011/api/tables-2/?idai={i}")
                 await self.send(json.dumps({'value_1': response_1.text, 'value_2': response_2.text, "sensor_number": i}))
             await sleep(1)

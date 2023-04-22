@@ -1,3 +1,4 @@
+{% load custom_tags %}
 <!DOCTYPE html>
 <html lang="en">
 {% include 'app/head.html' %}
@@ -40,7 +41,9 @@
                 </div>
     </div>
 </div>
-
+    <script>
+        console.log('{% get_host %}')
+    </script>
 </body>
 
 </html>
