@@ -1,29 +1,78 @@
 version: '3.8'
 
 services:
-  app:
+
+  #nginx service
+  nginx:
+    container_name: nginx
+    image: nginx:alpine
+    depends_on:
+        - wsgiserver
+        - asgiserver
+      ports:
+          - 1337:80
+          - 9000:9000
+    volumes:
+      - ./app/conf.d:/etc/nginx/conf.d
+    networks:
+        - dockernet
+
+  wsgiserver:
     build: .
     restart: always
-    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
-#    command: bash -c "python manage.py migrate  && uvicorn djangoProjectDiagnostics.asgi:application --host 0.0.0.0 --port 8000"
-    ports:
-      - "8000:8000"
-      - "8011:8011"
-    depends_on:
-      - db
-    volumes:
-      - .:/app
+    command: gunicorn djangoProjectDiagnostics.wsgi:application --bind 0.0.0.0:8000
 
-  db:
+    #command: bash -c "python manage.py migrate && uvicorn djangoProjectDiagnostics.asgi:application --host 0.0.0.0 --port 8000"
+    #command: bash -c  "python -m gunicorn -b ${HOST:-0}:${PORT:-0} djangoProjectDiagnostics.asgi:application -k uvicorn.workers.UvicornWorker"
+#    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+#    command: bash -c "python manage.py migrate  && uvicorn djangoProjectDiagnostics.asgi:application --host 0.0.0.0 --port 8000"
+#    ports:
+##      - "${PORT:-0}:${PORT:-0}"
+##      - "8011:8011"
+    depends_on:
+      - postgres
+#      - redis
+    volumes:
+      - .:/usr/src/app/
+    links:
+      - postgres
+      - redis
+    expose:
+      - 8000
+    networks:
+        - dockernet
+
+  asgiserver:
+    build: .
+    restart: always
+    command: daphne djangoProjectDiagnostics.asgi:application -b 0.0.0.0 -p 9000
+    depends_on:
+      - postgres
+    volumes:
+      - .:/usr/src/app/
+    links:
+      - postgres
+      - redis
+    expose:
+      - 9000
+    networks:
+        - dockernet
+
+  postgres:
     image: postgres:15
     container_name: local_pgdb
     restart: always
     environment:
-      - "POSTGRES_HOST_AUTH_METHOD=trust"
+      POSTGRES_DB: "diagnostics"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "12345678"
+#      - "POSTGRES_HOST_AUTH_METHOD=trust"
     ports:
       - "5432:5432"
     volumes:
       - db:/var/lib/postgresql/data/
+    networks:
+        - dockernet
 
   pgadmin:
     container_name: pgadmin4_container
@@ -34,10 +83,21 @@ services:
       PGADMIN_DEFAULT_PASSWORD: root
     ports:
       - "5050:80"
+    networks:
+        - dockernet
 
-  cache:
+  redis:
+    container_name: redis
     image: redis
-    restart: always
+    restart: unless-stopped
+    ports:
+        - 6379:6379
+    networks:
+        - dockernet
+
+networks:
+    dockernet:
+        external: true
 
 volumes:
   db:

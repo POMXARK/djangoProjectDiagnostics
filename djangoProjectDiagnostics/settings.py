@@ -13,8 +13,8 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 load_dotenv()  # loads the configs from .env
-import django_heroku
-import dj_database_url
+# import django_heroku
+# import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,7 +29,8 @@ SECRET_KEY = 'django-insecure-pst4z+rao*h(hvlumqduktq3t)ntq#55jf1i9_*(3jbxaa84s(
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
+CSRF_TRUSTED_ORIGINS = ['http://0.0.0.0:8080']
+CSRF_COOKIE_SECURE = False
 # Application definition
 
 INSTALLED_APPS = [
@@ -45,9 +46,11 @@ INSTALLED_APPS = [
     'channels',
     'app',
 
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     "whitenoise.middleware.WhiteNoiseMiddleware",  # Here
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -106,7 +109,7 @@ DATABASES = {
         'NAME': 'diagnostics',
         'USER': 'postgres',
         'PASSWORD': '12345678',
-        'HOST': '127.0.0.1',
+        'HOST': os.environ.get('DB_HOST'),
         'PORT': '5432',
     }
 }
@@ -116,7 +119,7 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [(os.environ.get('HOST'), 6379)],
+            "hosts": [('redis', 6379)],
         },
     },
 }
@@ -154,8 +157,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+#STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
@@ -165,4 +169,4 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
