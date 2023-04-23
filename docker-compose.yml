@@ -5,9 +5,9 @@ services:
   wsgiserver:
     build: .
     restart: always
-    command: daphne djangoProjectDiagnostics.asgi:application -b 0.0.0.0 -p 8000
+    command: daphne djangoProjectDiagnostics.asgi:application -b 0.0.0.0 -p 80
     ports:
-      - '0.0.0.0:8000:8000'
+      - '0.0.0.0:80:80'
     depends_on:
       - postgres
       - redis

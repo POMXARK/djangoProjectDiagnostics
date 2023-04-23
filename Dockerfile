@@ -8,6 +8,6 @@ WORKDIR /app
 # Копирует все файлы из нашего локального проекта в контейнер для автоперезагрузки изменений
 COPY . .
 # Запускает команду pip install для всех библиотек, перечисленных в requirements.txt
-EXPOSE 8000
+EXPOSE 80
 RUN pip install -r requirements.txt
 #CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
