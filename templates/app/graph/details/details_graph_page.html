@@ -25,7 +25,7 @@
 
 <script>
    $(document).ready(function () {
-const socket_table = new WebSocket('ws://0.0.0.0:9000/ws/table/');
+const socket_table = new WebSocket('ws://' + window.location.host + '/ws/table/');
                socket_table.onmessage = function (e) {
                 let current_values = get_data(e.data);
                    let url = location.href;
@@ -52,7 +52,7 @@ let global_values = [];
 let global_count_points_selected;
 
 $(document).ready(function () {
-    const socket_graph_details = new WebSocket('ws://0.0.0.0:9000/ws/details/');
+    const socket_graph_details = new WebSocket('ws://' + window.location.host + '/ws/details/');
     socket_graph_details.onmessage = function (e) {
 
         let graphs = {};

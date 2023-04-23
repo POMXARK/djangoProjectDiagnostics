@@ -7,7 +7,7 @@ let global_values = [];
 let global_count_points_selected;
 
 $(document).ready(function () {
-    const socket_graph = new WebSocket('ws://0.0.0.0:9000/ws/graph/');
+    const socket_graph = new WebSocket('ws://' + window.location.host + '/ws/graph/');
     socket_graph.onmessage = function (e) {
 
         let graphs = {};

@@ -47,7 +47,7 @@ function getDetailsData(myUrl) {
 
 {#console.log(test);#}
 $(document).ready(function () {
-    const socket_graph_details = new WebSocket('ws://0.0.0.0:9000/ws/details/');
+    const socket_graph_details = new WebSocket('ws://' + window.location.host + '/ws/details/');
     socket_graph_details.onmessage = function (e) {
 
         let current_values = $.parseJSON(get_data(e.data));
