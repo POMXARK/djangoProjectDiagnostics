@@ -1,6 +1,4 @@
 .venv
 .git
 .gitignore
-backup_db.backup
-db.sqlite3
 README.MD
