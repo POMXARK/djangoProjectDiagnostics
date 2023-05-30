@@ -25,7 +25,8 @@
 
 <script>
    $(document).ready(function () {
-const socket_table = new WebSocket('ws://' + window.location.host + '/ws/table/');
+        var ws_scheme = window.location.protocol === "https:" ? "wss" : "ws";
+        const socket_table = new WebSocket(ws_scheme + '://' + window.location.host + '/ws/table/');
                socket_table.onmessage = function (e) {
                 let current_values = get_data(e.data);
                    let url = location.href;
@@ -52,7 +53,8 @@ let global_values = [];
 let global_count_points_selected;
 
 $(document).ready(function () {
-    const socket_graph_details = new WebSocket('ws://' + window.location.host + '/ws/details/');
+    var ws_scheme = window.location.protocol === "https:" ? "wss" : "ws";
+    const socket_graph_details = new WebSocket(ws_scheme + '://' + window.location.host + '/ws/details/');
     socket_graph_details.onmessage = function (e) {
 
         let graphs = {};
@@ -61,6 +63,7 @@ $(document).ready(function () {
         let res = url.substring(url.lastIndexOf('/') + 1);
 
         let current_values = $.parseJSON(get_data(e.data, res));
+        console.log('current_values::' , current_values)
         if (current_values !== 0) {
                     let count_points_selected = $( "#count_points option:selected" ).text();
         if (_.isEqual(current_values, window.global_values) === false ||
