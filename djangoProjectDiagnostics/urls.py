@@ -39,4 +39,4 @@ urlpatterns = [
     path('table/', TemplateView.as_view(template_name='app/table/table_page.html'), name='table'),
     path('api/', include(router.urls)),
     #path('dashboardkit/', TemplateView.as_view(template_name='dashboardkit/dashboardkit/index.html'), name='dashboardkit'),
-] #+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

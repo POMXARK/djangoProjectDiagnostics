@@ -7,7 +7,7 @@ services:
     restart: always
     command: daphne djangoProjectDiagnostics.asgi:application -b 0.0.0.0 -p 80
     ports:
-      - '0.0.0.0:80:80'
+      - '0.0.0.0:81:80'
     depends_on:
       - postgres
       - redis
